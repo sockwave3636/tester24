@@ -10,18 +10,18 @@ import {
 } from "recharts";
 
 const C = {
-  bg: "#F6F0D7",
-  bg2: "#EEF3DD",
-  card: "rgba(255,255,255,0.78)",
-  border: "rgba(137,152,109,0.28)",
-  gold: "#89986D",
-  saffron: "#9CAB84",
-  teal: "#C5D89D",
-  rust: "#7E8D66",
-  sage: "#9CAB84",
-  cream: "#334155",
-  muted: "#64748B",
-  dim: "#D9E2C4",
+  bg: "#f8fafc",
+  bg2: "#f0fdf4",
+  card: "rgba(255,255,255,0.92)",
+  border: "rgba(16,185,129,0.18)",
+  gold: "#047857",
+  saffron: "#10b981",
+  teal: "#34d399",
+  rust: "#065f46",
+  sage: "#059669",
+  cream: "#0f172a",
+  muted: "#64748b",
+  dim: "#d1fae5",
 };
 
 const doshaData = [
@@ -94,7 +94,7 @@ function Card({ children, style = {} }: CardProps) {
         background: C.card,
         border: `1px solid ${C.border}`,
         borderRadius: 16,
-        padding: 20,
+        padding: "clamp(14px, 2vw, 20px)",
         backdropFilter: "blur(3px)",
         ...style,
       }}
@@ -190,7 +190,7 @@ export default function AyurvedaDashboard() {
         color: C.cream,
         borderRadius: 18,
         border: `1px solid ${C.border}`,
-        padding: 20,
+        padding: "clamp(12px, 2vw, 20px)",
       }}
     >
       <div
@@ -209,14 +209,14 @@ export default function AyurvedaDashboard() {
           <div style={{ fontSize: 10, letterSpacing: 3, color: C.gold, textTransform: "uppercase" }}>
             Integrative Ayurveda
           </div>
-          <h3 style={{ margin: "6px 0 0", fontSize: 30, lineHeight: 1, color: "#1f2937" }}>
+          <h3 style={{ margin: "6px 0 0", fontSize: "clamp(22px, 4vw, 30px)", lineHeight: 1, color: "#1f2937" }}>
             Arogya Health Dashboard
           </h3>
           <div style={{ fontSize: 12, color: C.muted, marginTop: 6 }}>
             Swastha: balance in body, mind and spirit
           </div>
         </div>
-        <div style={{ textAlign: "right", minWidth: 160 }}>
+        <div style={{ textAlign: "right", minWidth: 0 }}>
           <div style={{ fontSize: 14, fontWeight: 700, color: "#1f2937" }}>Arjun Kapoor</div>
           <div style={{ fontSize: 10, color: C.muted }}>Male · Age 34 · EMP-2847</div>
           <div style={{ fontSize: 10, color: C.muted, marginTop: 4 }}>Assessed: 02 Mar 2026</div>
@@ -258,7 +258,7 @@ export default function AyurvedaDashboard() {
 
       {activeTab === "overview" && (
         <div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(5,minmax(0,1fr))", gap: 10, marginBottom: 14 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: 10, marginBottom: 14 }}>
             {[
               { label: "Overall Arogya", value: "61", unit: "/100", color: C.saffron, note: "Moderate Vikruti" },
               { label: "Ojas", value: "55", unit: "/100", color: C.teal, note: "Needs restoration" },
@@ -277,7 +277,7 @@ export default function AyurvedaDashboard() {
             ))}
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1.2fr", gap: 14 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 14 }}>
             <Card>
               <SectionHead sub="Constitutional imbalance (Vikruti)">Tridosha Assessment</SectionHead>
               <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
@@ -365,7 +365,7 @@ export default function AyurvedaDashboard() {
       )}
 
       {activeTab === "dhatu" && (
-        <div style={{ display: "grid", gridTemplateColumns: "1.4fr 1fr", gap: 14 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 14 }}>
           <Card>
             <SectionHead sub="Seven tissue layers - Sara score">Sapta Dhatu Status</SectionHead>
             {dhaatuData.map((d, i) => {
@@ -405,7 +405,7 @@ export default function AyurvedaDashboard() {
       )}
 
       {activeTab === "agni" && (
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 14 }}>
           <Card>
             <SectionHead sub="Digestive fire status">Agni Assessment</SectionHead>
             {[
@@ -437,7 +437,7 @@ export default function AyurvedaDashboard() {
       {activeTab === "kriya" && (
         <Card>
           <SectionHead sub="Six stages of disease progression">Kriyakala Stage Assessment</SectionHead>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(6, minmax(0,1fr))", gap: 8 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(120px,1fr))", gap: 8 }}>
             {[
               "1 Sanchaya",
               "2 Prakopa",
@@ -466,7 +466,7 @@ export default function AyurvedaDashboard() {
       )}
 
       {activeTab === "reco" && (
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0,1fr))", gap: 12 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px,1fr))", gap: 12 }}>
           {recommendations.map((r) => (
             <Card key={r.category}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
