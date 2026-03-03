@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Patient Health Dashboard",
-  description: "Dummy-data patient dashboard with Ayurveda, Allopathy, and Astrology views.",
+  description: "Dummy-data patient dashboard with module-based clinical and wellness views.",
 };
 
 export default function RootLayout({

@@ -170,17 +170,27 @@ function StatusPill({ status }: { status: string }) {
   );
 }
 
-export default function AyurvedaDashboard() {
-  const [activeTab, setActiveTab] = useState("overview");
+export type AyurvedaTab = "overview" | "blood" | "dhatu" | "agni" | "kriya" | "srotas" | "reco";
+
+export default function AyurvedaDashboard({
+  initialTab = "overview",
+  lockedTab,
+}: {
+  initialTab?: AyurvedaTab;
+  lockedTab?: AyurvedaTab;
+} = {}) {
+  const [selectedTab, setSelectedTab] = useState<AyurvedaTab>(initialTab);
+  const activeTab = lockedTab ?? selectedTab;
 
   const tabs = [
     { id: "overview", label: "Prakriti & Dosha" },
     { id: "blood", label: "Blood + Ayurveda" },
     { id: "dhatu", label: "Dhatu & Mala" },
-    { id: "agni", label: "Agni & Ama" },
+    { id: "agni", label: "Agni Ama koshta" },
     { id: "kriya", label: "Kriyakala" },
+    { id: "srotas", label: "Srotas and Srotodushti" },
     { id: "reco", label: "Recommendations" },
-  ];
+  ] as const satisfies { id: AyurvedaTab; label: string }[];
 
   return (
     <div
@@ -223,38 +233,40 @@ export default function AyurvedaDashboard() {
         </div>
       </div>
 
-      <div
-        style={{
-          display: "flex",
-          gap: 4,
-          overflowX: "auto",
-          borderBottom: `1px solid ${C.border}`,
-          marginBottom: 18,
-        }}
-      >
-        {tabs.map((t) => (
-          <button
-            key={t.id}
-            onClick={() => setActiveTab(t.id)}
-            style={{
-              background: "none",
-              border: "none",
-              cursor: "pointer",
-              padding: "10px 14px",
-              fontSize: 10,
-              textTransform: "uppercase",
-              letterSpacing: 1.4,
-              whiteSpace: "nowrap",
-              color: activeTab === t.id ? "#334155" : C.muted,
-              borderBottom: activeTab === t.id ? `2px solid ${C.gold}` : "2px solid transparent",
-              marginBottom: -1,
-              fontWeight: activeTab === t.id ? 700 : 500,
-            }}
-          >
-            {t.label}
-          </button>
-        ))}
-      </div>
+      {!lockedTab && (
+        <div
+          style={{
+            display: "flex",
+            gap: 4,
+            overflowX: "auto",
+            borderBottom: `1px solid ${C.border}`,
+            marginBottom: 18,
+          }}
+        >
+          {tabs.map((t) => (
+            <button
+              key={t.id}
+              onClick={() => setSelectedTab(t.id)}
+              style={{
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                padding: "10px 14px",
+                fontSize: 10,
+                textTransform: "uppercase",
+                letterSpacing: 1.4,
+                whiteSpace: "nowrap",
+                color: activeTab === t.id ? "#334155" : C.muted,
+                borderBottom: activeTab === t.id ? `2px solid ${C.gold}` : "2px solid transparent",
+                marginBottom: -1,
+                fontWeight: activeTab === t.id ? 700 : 500,
+              }}
+            >
+              {t.label}
+            </button>
+          ))}
+        </div>
+      )}
 
       {activeTab === "overview" && (
         <div>
@@ -306,7 +318,7 @@ export default function AyurvedaDashboard() {
               </ResponsiveContainer>
             </Card>
 
-            <Card>
+            {/* <Card>
               <SectionHead sub="Five element composition">Panchamahabhuta State</SectionHead>
               {[
                 { el: "Akasha", score: 45, col: C.teal, note: "Depleted and spacey" },
@@ -326,7 +338,7 @@ export default function AyurvedaDashboard() {
                   <div style={{ marginTop: 2, fontSize: 9, color: C.muted }}>{e.note}</div>
                 </div>
               ))}
-            </Card>
+            </Card> */}
           </div>
         </div>
       )}
@@ -463,6 +475,62 @@ export default function AyurvedaDashboard() {
             ))}
           </div>
         </Card>
+      )}
+
+      {activeTab === "srotas" && (
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 12 }}>
+          <Card>
+            <SectionHead sub="Main channels reviewed">Srotas Overview</SectionHead>
+            {[
+              { name: "Annavaha Srotas", state: "Mild Dusti", note: "Post-meal heaviness and bloating pattern." },
+              { name: "Pranavaha Srotas", state: "Stable", note: "Breath rhythm mostly balanced." },
+              { name: "Rasavaha Srotas", state: "Moderate Dusti", note: "Fatigue and low nourishment signals." },
+              { name: "Medovaha Srotas", state: "Moderate Dusti", note: "Metabolic sluggishness and weight retention." },
+            ].map((item) => (
+              <div key={item.name} style={{ marginBottom: 12 }}>
+                <div style={{ display: "flex", justifyContent: "space-between", gap: 8 }}>
+                  <span style={{ fontSize: 13, fontWeight: 700, color: "#334155" }}>{item.name}</span>
+                  <StatusPill status={item.state.includes("Mild") ? "border" : item.state.includes("Stable") ? "normal" : "high"} />
+                </div>
+                <div style={{ marginTop: 4, fontSize: 11, color: C.muted }}>{item.note}</div>
+              </div>
+            ))}
+          </Card>
+
+          <Card>
+            <SectionHead sub="Type of channel pathology">Srotodushti Pattern</SectionHead>
+            {[
+              { type: "Sanga (Obstruction)", score: 68, color: C.saffron },
+              { type: "Atipravritti (Excess flow)", score: 32, color: C.teal },
+              { type: "Siragranthi (Structural change)", score: 48, color: C.gold },
+              { type: "Vimarga-gamana (Misplaced flow)", score: 40, color: C.rust },
+            ].map((row) => (
+              <div key={row.type} style={{ marginBottom: 11 }}>
+                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 3 }}>
+                  <span style={{ fontSize: 12, color: "#334155", fontWeight: 700 }}>{row.type}</span>
+                  <span style={{ fontSize: 10, color: row.color }}>{row.score}%</span>
+                </div>
+                <div style={{ height: 5, borderRadius: 6, background: C.dim, overflow: "hidden" }}>
+                  <div style={{ height: "100%", width: `${row.score}%`, background: row.color }} />
+                </div>
+              </div>
+            ))}
+          </Card>
+
+          <Card>
+            <SectionHead sub="Focused correction plan">Srotas Correction</SectionHead>
+            {[
+              "Deepana-Pachana protocol for Annavaha and Rasavaha channels.",
+              "Daily ushna-jala and light langhana support for Sanga pattern.",
+              "Kapha-meda balancing ahara with fixed meal timing.",
+              "Gentle anuloma-viloma and 30-min walk post major meal.",
+            ].map((line) => (
+              <div key={line} style={{ fontSize: 12, color: "#475569", marginBottom: 8 }}>
+                • {line}
+              </div>
+            ))}
+          </Card>
+        </div>
       )}
 
       {activeTab === "reco" && (

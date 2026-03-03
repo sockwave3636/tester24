@@ -1,6 +1,13 @@
+import Link from "next/link";
 import BodyMeasurements from "./BodyMeasurements";
 
-export default function PatientOverview() {
+export default function PatientOverview({
+  headerActions,
+  moduleLinks = [],
+}: {
+  headerActions?: React.ReactNode;
+  moduleLinks?: { href: string; title: string; description: string }[];
+}) {
   const patient = {
     name: "Ananya Sharma",
     age: 42,
@@ -32,46 +39,68 @@ export default function PatientOverview() {
   });
 
   return (
-    <section className="relative overflow-hidden rounded-3xl border border-slate-200 bg-white p-6 shadow-xl shadow-slate-200/60 md:p-8">
+    <section className="relative overflow-hidden rounded-3xl border border-slate-200 bg-white p-6 shadow-xl shadow-slate-200/60 md:p-2">
       <div className="pointer-events-none absolute -right-24 -top-20 h-72 w-72 rounded-full bg-slate-100 blur-3xl" />
       <div className="pointer-events-none absolute -left-24 bottom-0 h-64 w-64 rounded-full bg-slate-100 blur-3xl" />
 
-      <div className="relative">
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
-          Health Dashboard
-        </p>
-        <h1 className="mt-2 text-3xl font-bold text-slate-900 md:text-4xl">
-          Patient Details (Dummy Data)
-        </h1>
-        <p className="mt-2 max-w-2xl text-sm text-slate-600 md:text-base">
-          Unified snapshot of clinical profile, body measurements, and
-          multi-system care tracks.
-        </p>
+      <div className="relative flex flex-wrap items-start justify-between gap-4">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
+            Health Dashboard
+          </p>
+          <h1 className="mt-2 text-3xl font-bold text-slate-900 md:text-4xl">
+            Patient Details (Dummy Data)
+          </h1>
+          <p className="mt-2 max-w-2xl text-sm text-slate-600 md:text-base">
+            Unified snapshot of clinical profile, body measurements, and
+            multi-system care tracks.
+          </p>
+        </div>
+        {headerActions}
       </div>
 
       <div className="relative mt-8 grid grid-cols-1 gap-6 xl:grid-cols-[1.2fr_1fr]">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          <DetailCard label="Name" value={patient.name} />
-          <DetailCard label="Age" value={`${patient.age} years`} />
-          <DetailCard label="Gender" value={patient.gender} />
-          <DetailCard label="Occupation" value={patient.occupation} />
-          <DetailCard label="Height" value={patient.height} />
-          <DetailCard label="Weight" value={patient.weight} />
-          <DetailCard label="BMI" value={patient.bmi} />
-          <DetailCard label="Body Fat" value={patient.bodyFat} />
-          <DetailCard
-            label="Waist Circumference"
-            value={patient.waistCircumference}
-          />
-          <DetailCard
-            label="Family History"
-            value={patient.familyHistory}
-            className="sm:col-span-2"
-          />
+          {moduleLinks.length > 0 ? (
+            moduleLinks.map((module) => (
+              <Link
+                key={module.href}
+                href={module.href}
+                className="rounded-xl border border-slate-200 bg-white px-2.5 py-1.5 shadow-sm transition hover:-translate-y-0.5 hover:border-slate-300 hover:bg-slate-50"
+              >
+                <p className="text-[10px] font-semibold uppercase leading-4 tracking-[0.12em] text-slate-500">
+                  {module.title}
+                </p>
+                <p className="mt-0.5 text-sm leading-5 text-slate-900">
+                  {module.description}
+                </p>
+              </Link>
+            ))
+          ) : (
+            <>
+              <DetailCard label="Name" value={patient.name} />
+              <DetailCard label="Age" value={`${patient.age} years`} />
+              <DetailCard label="Gender" value={patient.gender} />
+              <DetailCard label="Occupation" value={patient.occupation} />
+              <DetailCard label="Height" value={patient.height} />
+              <DetailCard label="Weight" value={patient.weight} />
+              <DetailCard label="BMI" value={patient.bmi} />
+              <DetailCard label="Body Fat" value={patient.bodyFat} />
+              <DetailCard
+                label="Waist Circumference"
+                value={patient.waistCircumference}
+              />
+              <DetailCard
+                label="Family History"
+                value={patient.familyHistory}
+                className="sm:col-span-2"
+              />
+            </>
+          )}
         </div>
 
-        <div className="rounded-2xl bg-slate-900 p-4 text-slate-100 shadow-lg shadow-slate-300/40 md:p-5">
-          <div className="rounded-xl border border-slate-700 bg-slate-800 p-4">
+        <div className="rounded-2xl bg-slate-900 p-1 text-slate-100 shadow-lg shadow-slate-300/40 md:p-2">
+          <div className="rounded-xl border border-slate-700 bg-slate-800 p-1">
             <p className="text-sm text-slate-300">
               Health Habits Timeline (Hand-Drawn Concept)
             </p>
@@ -144,7 +173,7 @@ export default function PatientOverview() {
             </div>
           </div>
 
-          <div className="mt-5 rounded-xl border border-slate-700 bg-slate-800 p-4">
+          <div className="mt-1 rounded-xl border border-slate-700 bg-slate-800 p-1">
             <BodyMeasurements />
           </div>
         </div>
@@ -163,11 +192,13 @@ function DetailCard({
   className?: string;
 }) {
   return (
-    <div className={`rounded-xl border border-slate-200 bg-white p-4 shadow-sm ${className}`}>
-      <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-500">
+    <div
+      className={`rounded-xl border border-slate-200 bg-white px-2.5 py-1.5 shadow-sm ${className}`}
+    >
+      <p className="text-[10px] font-semibold uppercase leading-4 tracking-[0.12em] text-slate-500">
         {label}
       </p>
-      <p className="mt-1 text-base font-semibold text-slate-900">{value}</p>
+      <p className="mt-0.5 text-sm font-semibold leading-5 text-slate-900">{value}</p>
     </div>
   );
 }

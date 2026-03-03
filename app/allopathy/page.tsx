@@ -5,7 +5,7 @@ export default function AllopathyPage() {
   return (
     <SectionScaffold
       title="Allopathy"
-      subtitle="Click any vital parameter card to open its dedicated detail page with trend and clinical notes."
+      subtitle="Swipe the vital cards in a row and click one to view full trend and clinical detail below."
     >
       <AllopathyPanel />
     </SectionScaffold>

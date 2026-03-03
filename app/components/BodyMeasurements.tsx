@@ -3,23 +3,24 @@ import { ArrowDown, ArrowUp } from "lucide-react";
 export default function BodyMeasurements() {
   return (
     <div className="flex flex-col gap-4">
-      <div>
-        <h3 className="text-xl font-semibold text-white">Body Measurements</h3>
-        <p className="mt-1 text-xs text-slate-300">Last checked 2 days ago</p>
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+        <div>
+          <h3 className="text-xl font-semibold text-white">Body Measurements</h3>
+          <p className="mt-1 text-xs text-slate-300">Last checked 2 days ago</p>
+        </div>
+        <div className="self-start rounded-2xl bg-slate-700 px-4 py-2 sm:self-auto">
+          <span className="text-xs font-medium text-slate-100">Front Body Shape</span>
+        </div>
       </div>
 
-      <div className="self-start rounded-2xl bg-slate-700 px-4 py-2">
-        <span className="text-xs font-medium text-slate-100">Front Body Shape</span>
-      </div>
-
-      <div className="flex items-center gap-6">
-        <div className="flex flex-1 flex-col gap-3">
+      <div className="flex flex-col gap-4 md:flex-row md:items-center md:gap-6">
+        <div className="flex w-full flex-1 flex-col gap-3">
           <MeasurementCard label="Chest (in)" value="44.5" trend="up" />
           <MeasurementCard label="Waist (in)" value="34" trend="down" />
           <MeasurementCard label="Hip (in)" value="42.5" trend="down" />
         </div>
 
-        <div className="relative h-[22rem] w-44 shrink-0">
+        <div className="relative mx-auto h-[18rem] w-full max-w-40 shrink-0 md:mx-0 md:h-[22rem] md:w-44 md:max-w-none">
           <svg
             viewBox="0 0 220 420"
             className="h-full w-full"
@@ -88,7 +89,7 @@ function MeasurementCard({
   trend: "up" | "down";
 }) {
   return (
-    <div className="flex w-full flex-col gap-1 rounded-2xl bg-white p-4 shadow-sm">
+    <div className="flex w-full flex-col gap-1 rounded-2xl bg-white p-2.5 shadow-sm">
       <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500">
         {label}
       </span>

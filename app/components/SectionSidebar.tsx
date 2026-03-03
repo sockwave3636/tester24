@@ -3,8 +3,6 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
-  BarChart3,
-  Calendar,
   CircleHelp,
   LayoutDashboard,
   LogOut,
@@ -14,9 +12,6 @@ import {
 
 const sections = [
   { href: "/", label: "Home" },
-  { href: "/ayurveda", label: "Ayurveda" },
-  { href: "/allopathy", label: "Allopathy" },
-  { href: "/astrology", label: "Astrology" },
 ];
 
 export default function SectionSidebar() {
@@ -37,7 +32,7 @@ export default function SectionSidebar() {
       <nav className="grid grid-cols-2 gap-1 md:grid-cols-1">
         {sections.map((section, idx) => {
           const active = pathname === section.href;
-          const Icon = idx === 0 ? LayoutDashboard : idx === 1 ? BarChart3 : idx === 2 ? Calendar : CircleHelp;
+          const Icon = idx === 0 ? LayoutDashboard : Settings;
           return (
             <Link
               key={section.href}
