@@ -1,5 +1,4 @@
 import AstrologyPanel from "../components/AstrologyPanel";
-import PatientDetailBanner from "../components/PatientDetailBanner";
 import SectionScaffold from "../components/SectionScaffold";
 
 export default function AstrologyPage() {
@@ -8,10 +7,7 @@ export default function AstrologyPage() {
       title="Astrology"
       subtitle="Astrological wellness indicators and supportive guidance (dummy data)."
     >
-      <div className="space-y-5">
-        <PatientDetailBanner />
-        <AstrologyPanel />
-      </div>
+      <AstrologyPanel />
     </SectionScaffold>
   );
 }

@@ -153,7 +153,13 @@ export default function PatientOverview({
                   />
                 ))}
 
-                <g stroke="#0f172a" strokeWidth="4" strokeLinecap="round" fill="none">
+                <g
+                  stroke="#0f172a"
+                  strokeWidth="4"
+                  strokeLinecap="round"
+                  fill="none"
+                  transform="translate(0,-16)"
+                >
                   <circle cx="365" cy="98" r="12" />
                   <line x1="365" y1="110" x2="365" y2="145" />
                   <line x1="365" y1="122" x2="345" y2="135" />

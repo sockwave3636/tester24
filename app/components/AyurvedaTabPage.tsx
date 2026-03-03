@@ -1,5 +1,4 @@
 import AyurvedaDashboard, { AyurvedaTab } from "./AyurvedaDashboard";
-import PatientDetailBanner from "./PatientDetailBanner";
 import SectionScaffold from "./SectionScaffold";
 
 export default function AyurvedaTabPage({
@@ -13,11 +12,7 @@ export default function AyurvedaTabPage({
 }) {
   return (
     <SectionScaffold title={title} subtitle={subtitle}>
-      <div className="space-y-5">
-        <PatientDetailBanner />
-        <AyurvedaDashboard lockedTab={tab} />
-      </div>
+      <AyurvedaDashboard lockedTab={tab} />
     </SectionScaffold>
   );
 }
-

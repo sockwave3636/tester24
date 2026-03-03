@@ -1,7 +1,7 @@
 export const PATIENT_DETAILS = {
-  name: "Ananya Sharma",
-  age: 42,
-  gender: "Female",
+  name: "Arjun Kapoor",
+  age:  34 ,
+  gender: "Male",
   patientId: "EMP-2847",
   occupation: "School Teacher",
   familyHistory: "Type 2 diabetes and hypertension",
